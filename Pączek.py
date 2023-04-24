@@ -18,6 +18,9 @@ class Transformations:
             self.a = 6378245
             self.e2 = 0.00669342162296
 
+        assert self.elipsoid_name == "GRS80" or "WGS84" or "Krasowski",\
+            "Ta elipsoida nie jest obsługiwana przez program"
+
     def xyz2flh(self, X, Y, Z,):
         a = self.a
         e2 = self.e2
@@ -25,10 +28,10 @@ class Transformations:
         f = np.arctan(Z/(P*(1 - self.e2)))
     
         while True:
-            N = self.a/ np.sqrt(1 - self.e2 * sin(f)**2)
+            N = a/ np.sqrt(1 - e2 * sin(f)**2)
             h = P / cos(f) - N
             fp = f
-            f = np.arctan(Z/(P* (1 - self.e2 * N / (N + h))))
+            f = np.arctan(Z/(P* (1 - e2 * N / (N + h))))
             if abs(fp - f) < (0.000001/206265):
                 break
     
@@ -44,10 +47,10 @@ class Transformations:
     def flh2xyz(self, f, l, h):
         a = self.a
         e2 = self.e2
-        N = self.a/ np.sqrt(1 - self.e2 * sin(f)**2)
+        N = a/ np.sqrt(1 - e2 * sin(f)**2)
         X = (N + h) * cos(f) * cos(l)
         Y = (N + h) * cos(f) * sin(l)
-        Z = (N + h - N * self.e2) * sin(f)
+        Z = (N + h - N * e2) * sin(f)
         return(X, Y, Z)
     
     def fl2pl2000(self, f, l, ns, m0= 0.999923):
@@ -61,17 +64,17 @@ class Transformations:
             l0 = radians(21)
         elif ns == 8:
             l0 = radians(24)
-        b2 = self.a**2*(1 - self.e2)
-        ep2 = (self.a**2 - b2)/b2
+        b2 = a**2*(1 - e2)
+        ep2 = (a**2 - b2)/b2
         dl = l - l0
         t = tan(f)
         n2 = ep2 * cos(f)**2
-        N = self.a/ np.sqrt(1 - self.e2 * sin(f)**2)
-        A0 = 1 - self.e2/4 - 3 * self.e2**2/64 - 5 * self.e2**3/256
-        A2 = (3/8) * (self.e2 + self.e2**2/4 + 15*self.e2**3/128)
-        A4 = (15/256) * (self.e2**2 + (3 * self.e2**3)/4)
-        A6 = 35 * self.e2**3/3072
-        sigma = self.a* (A0*f - A2*sin(2*f) + A4*sin(4*f) - A6*sin(6*f))
+        N = a/ np.sqrt(1 - e2 * sin(f)**2)
+        A0 = 1 - e2/4 - 3 * e2**2/64 - 5 * e2**3/256
+        A2 = (3/8) * (e2 + e2**2/4 + 15*e2**3/128)
+        A4 = (15/256) * (e2**2 + (3 * e2**3)/4)
+        A6 = 35 * e2**3/3072
+        sigma = a* (A0*f - A2*sin(2*f) + A4*sin(4*f) - A6*sin(6*f))
         xgk = sigma + (dl**2/2) * N * sin(f)*cos(f)*(1 + (dl**2/12)*cos(f)**2*(5-t**2+9*n2+4*n2**2)+ ((dl**4)/360)*cos(f)**4*(61 - 58*t**2 + t**4 + 270*n2 - 330*n2*t**2))
         ygk = dl*N*cos(f)*(1+(dl**2/6)*cos(f)**2*(1 - t**2 + n2) + (dl**4/120)*cos(f)**4*(5 - 18*t**2 + t**4 + 14*n2 - 58*n2*t**2))
         x2000 = xgk * m0
@@ -81,17 +84,17 @@ class Transformations:
     def fl2pl1992(self, f, l, l0=radians(19), m0 = 0.9993):
         a = self.a
         e2 = self.e2
-        b2 = self.a**2*(1 - self.e2)
-        ep2 = (self.a**2 - b2)/b2
+        b2 = a**2*(1 - e2)
+        ep2 = (a**2 - b2)/b2
         dl = l - l0
         t = tan(f)
         n2 = ep2 * cos(f)**2
-        N = self.a/ np.sqrt(1 - self.e2 * sin(f)**2)
-        A0 = 1 - self.e2/4 - 3 * self.e2**2/64 - 5 * self.e2**3/256
-        A2 = (3/8) * (self.e2 + self.e2**2/4 + 15*self.e2**3/128)
-        A4 = (15/256) * (self.e2**2 + (3 * self.e2**3)/4)
-        A6 = 35 * self.e2**3/3072
-        sigma = self.a* (A0*f - A2*sin(2*f) + A4*sin(4*f) - A6*sin(6*f))
+        N = a/ np.sqrt(1 - e2 * sin(f)**2)
+        A0 = 1 - e2/4 - 3 * e2**2/64 - 5 * e2**3/256
+        A2 = (3/8) * (e2 + e2**2/4 + 15*e2**3/128)
+        A4 = (15/256) * (e2**2 + (3 * e2**3)/4)
+        A6 = 35 * e2**3/3072
+        sigma = a* (A0*f - A2*sin(2*f) + A4*sin(4*f) - A6*sin(6*f))
         xgk = sigma + (dl**2/2) * N * sin(f)*cos(f)*(1 + (dl**2/12)*cos(f)**2*(5-t**2+9*n2+4*n2**2)+ ((dl**4)/360)*cos(f)**4*(61 - 58*t**2 + t**4 + 270*n2 - 330*n2*t**2))
         ygk = dl*N*cos(f)*(1+(dl**2/6)*cos(f)**2*(1 - t**2 + n2) + (dl**4/120)*cos(f)**4*(5 - 18*t**2 + t**4 + 14*n2 - 58*n2*t**2))
         x92 = xgk * m0 - 5300000
