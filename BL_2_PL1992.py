@@ -16,4 +16,4 @@ def fl2pl1992(f,l,a,e2,l0=radians(19), m0 = 0.9993):
     ygk = dl*N*cos(f)*(1+(dl**2/6)*cos(f)**2*(1 - t**2 + n2) + (dl**4/120)*cos(f)**4*(5 - 18*t**2 + t**4 + 14*n2 - 58*n2*t**2))
     x92 = xgk * m0 - 5300000
     y92 = ygk * m0 + 500000
-    return xgk,ygk,x92,y92
+    return x92,y92

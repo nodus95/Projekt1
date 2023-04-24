@@ -1,0 +1,21 @@
+Jak ma dziealac zczytywanie z tekstowych?
+
+wspolrzedne X / Y / Z
+
+definicja pliku tekstowego
+otwiera
+zmienia przecinki na kropki
+pętla:
+    czyta
+    wrzuca w kod
+    wpisuje do textowego
+
+f = open('wspXYZ.txt')
+lines = f.readlines()[1:]
+dane = []
+for line in lines:
+    line = line.strip()
+    line = line.replace(',', '.')
+    wsp = line.split()
+    dane.append(wsp)
+macierzWSP = np.array(dane, dtype=float)
