@@ -3,23 +3,19 @@ from math import *
 from argparse import ArgumentParser
 
 class Transformations:
-    def __init__(self, elipsoid_name: str):
-        """
-        Obsługiwane elipsoidy: GRS80, WGS84, Krasowskiego
-        """
-        self.elipsoid_name = elipsoid_name
-        if elipsoid_name == "GRS80":
+    def __init__(self, elipsoida):
+        self.elipsoida = elipsoida
+        if elipsoida == 'GRS80':
             self.a = 6378137
             self.e2 = 0.00669438002290
-        elif elipsoid_name == "WGS84":
+        elif elipsoida == 'WGS84':
             self.a = 6378137
-            self.e2 = 0.00669437999014
-        elif elipsoid_name == "Krasowskiego":
+            self.e2 = 0.00669438
+        elif elipsoida == 'Krasowski':
             self.a = 6378245
             self.e2 = 0.00669342162296
-
-        assert self.elipsoid_name == "GRS80" or "WGS84" or "Krasowski",\
-            "Ta elipsoida nie jest obsługiwana przez program"
+        else:
+            raise NotImplementedError(f"{elipsoida} niestety nie obsługujemy takiej elipsoidy... ")
 
     def xyz2flh(self, X, Y, Z,):
         a = self.a
