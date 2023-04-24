@@ -1,15 +1,15 @@
 import numpy as np
 from math import *
 #Definiowanie funkcji transformującej kod
-def xyz2flh(X, Y, Z, a, e2):
+def xyz2flh(X, Y, Z, a, self.e2):
     P = sqrt(X**2 + Y**2)
-    f = np.arctan(Z/(P*(1 - e2)))
+    f = np.arctan(Z/(P*(1 - self.e2)))
     
     while True:
-        N = a / np.sqrt(1 - e2 * sin(f)**2)
+        N = a / np.sqrt(1 - self.e2 * sin(f)**2)
         h = P / cos(f) - N
         fp = f
-        f = np.arctan(Z/(P* (1 - e2 * N / (N + h))))
+        f = np.arctan(Z/(P* (1 - self.e2 * N / (N + h))))
         if abs(fp - f) < (0.000001/206265):
             break
     
@@ -39,7 +39,7 @@ wynik= 'wynik.txt'
 f1= open(wynik, 'w')
 f1.write(f'fi                lambda        h\n')
 for i in macierzWSP:
-    fi, lam, h = xyz2flh(i[0], i[1], i[2], a = 6378137.000, e2 = 0.00669438002290)
+    fi, lam, h = xyz2flh(i[0], i[1], i[2], a = 6378137.000, self.e2 = 0.00669438002290)
     print(fi, lam, h)
     fid, fim, fis = dms(fi)
     lamd, lamm, lams = dms(lam)
