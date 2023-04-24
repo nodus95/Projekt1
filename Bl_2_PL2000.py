@@ -24,4 +24,4 @@ def fl2pl2000(f,l,a,e2,ns,m0= 0.999923):
     ygk = dl*N*cos(f)*(1+(dl**2/6)*cos(f)**2*(1 - t**2 + n2) + (dl**4/120)*cos(f)**4*(5 - 18*t**2 + t**4 + 14*n2 - 58*n2*t**2))
     x2000 = xgk * m0
     y2000 = ygk * m0 + ns * 1000000 + 500000
-    return xgk,ygk,x2000,y2000
+    return x2000,y2000
