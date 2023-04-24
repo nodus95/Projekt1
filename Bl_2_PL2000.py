@@ -1,8 +1,5 @@
 import numpy as np
 from math import *
-def Np(f, a, e2):
-    N = a / np.sqrt(1 - e2 * sin(f)**2)
-    return(N)
 def sigma(f, a, e2):
     A0 = 1 - e2/4 - 3 * e2**2/64 - 5 * e2**3/256
     A2 = (3/8) * (e2 + e2**2/4 + 15*e2**3/128)
@@ -24,7 +21,7 @@ def fl2pl2000(f,l,a,e2,ns,m0= 0.999923):
     dl = l - l0
     t = tan(f)
     n2 = ep2 * cos(f)**2
-    N = Np(f,a,e2)
+    N = a / np.sqrt(1 - e2 * sin(f)**2)
     sigm = sigma(f,a,e2)
     xgk = sigm + (dl**2/2) * N * sin(f)*cos(f)*(1 + (dl**2/12)*cos(f)**2*(5-t**2+9*n2+4*n2**2)+ ((dl**4)/360)*cos(f)**4*(61 - 58*t**2 + t**4 + 270*n2 - 330*n2*t**2))
     ygk = dl*N*cos(f)*(1+(dl**2/6)*cos(f)**2*(1 - t**2 + n2) + (dl**4/120)*cos(f)**4*(5 - 18*t**2 + t**4 + 14*n2 - 58*n2*t**2))
