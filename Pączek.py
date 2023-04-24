@@ -17,7 +17,7 @@ class Transformations:
         else:
             raise NotImplementedError(f"{elipsoida} niestety nie obsługujemy takiej elipsoidy... ")
 
-    def xyz2flh(self, X, Y, Z,):
+    def XYZ2BLH(self, X, Y, Z,):
         a = self.a
         e2 = self.e2
         P = sqrt(X**2 + Y**2)
@@ -34,13 +34,13 @@ class Transformations:
         l = np.arctan2(Y, X)
         return(f, l, h)
     
-    def XYZ2neu(dX,f,l):
+    def XYZ2NEU(dX,f,l):
         R = np.array([[-sin(f) * cos(l), -sin(l), cos(f) * cos(l)],
                       [-sin(f) * sin(l), cos(l), cos(f) * sin(l)],
                       [cos(f), 0, sin(f)]])
         return(R.T @ dX)
     
-    def flh2xyz(self, f, l, h):
+    def BLH2XYZ(self, f, l, h):
         a = self.a
         e2 = self.e2
         N = a/ np.sqrt(1 - e2 * sin(f)**2)
@@ -49,7 +49,7 @@ class Transformations:
         Z = (N + h - N * e2) * sin(f)
         return(X, Y, Z)
     
-    def fl2pl2000(self, f, l, ns, m0= 0.999923):
+    def BL2PL2000(self, f, l, ns, m0= 0.999923):
         a = self.a
         e2 = self.e2
         if ns == 5:
@@ -77,7 +77,7 @@ class Transformations:
         y2000 = ygk * m0 + ns * 1000000 + 500000
         return x2000,y2000
     
-    def fl2pl1992(self, f, l, l0=radians(19), m0 = 0.9993):
+    def BL2PL1992(self, f, l, l0=radians(19), m0 = 0.9993):
         a = self.a
         e2 = self.e2
         b2 = a**2*(1 - e2)
@@ -97,5 +97,10 @@ class Transformations:
         y92 = ygk * m0 + 500000
         return x92,y92
     
-
+if __name__ == '__main__':
+    argpars = ArgumentParser()
+    argpars.add_argument('-file', type=str, help='Tutaj należy podać ścieżkę pliku z danymi wejściowego')
+    argpars.add_argument('-elip', type=str, help='Tutaj należy podać elipsoidę na której mają być przeliczane współrzędne. Obsługiwane elipsoidy: WGS84, GRS80 lub Krasowski')
+    argpars.add_argument('-trans', type=str, help='Tutaj podać nazwę wybranej transformacji. Obsługiwane transformacje: XYZ2BLH, XYZ2NEU, BLH2XYZ, Bl2PL2000, BL2PL1992')
+    args = argpars.parse_args()
 
