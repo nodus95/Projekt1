@@ -18,7 +18,7 @@ class Transformations:
             self.a = 6378245
             self.e2 = 0.00669342162296
 
-    def xyz2flh(X, Y, Z, self):
+    def xyz2flh(self, X, Y, Z,):
         a = self.a
         e2 = self.e2
         P = sqrt(X**2 + Y**2)
@@ -41,7 +41,7 @@ class Transformations:
                       [cos(f), 0, sin(f)]])
         return(R.T @ dX)
     
-    def flh2xyz(f, l, h, self):
+    def flh2xyz(self, f, l, h):
         a = self.a
         e2 = self.e2
         N = self.a/ np.sqrt(1 - self.e2 * sin(f)**2)
@@ -50,7 +50,7 @@ class Transformations:
         Z = (N + h - N * self.e2) * sin(f)
         return(X, Y, Z)
     
-    def fl2pl2000(f, l, self, ns, m0= 0.999923):
+    def fl2pl2000(self, f, l, ns, m0= 0.999923):
         a = self.a
         e2 = self.e2
         if ns == 5:
@@ -78,7 +78,7 @@ class Transformations:
         y2000 = ygk * m0 + ns * 1000000 + 500000
         return x2000,y2000
     
-    def fl2pl1992(f, l, self, l0=radians(19), m0 = 0.9993):
+    def fl2pl1992(self, f, l, l0=radians(19), m0 = 0.9993):
         a = self.a
         e2 = self.e2
         b2 = self.a**2*(1 - self.e2)
