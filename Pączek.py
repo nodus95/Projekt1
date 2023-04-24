@@ -34,11 +34,17 @@ class Transformations:
         l = np.arctan2(Y, X)
         return(f, l, h)
     
-    def XYZ2NEU(dX,f,l):
-        R = np.array([[-sin(f) * cos(l), -sin(l), cos(f) * cos(l)],
-                      [-sin(f) * sin(l), cos(l), cos(f) * sin(l)],
-                      [cos(f), 0, sin(f)]])
-        return(R.T @ dX)
+    def XYZ2NEU(self, xa, ya, za, xb, yb, zb):
+        dwsp = np.array([xb - xa, yb - ya, zb - za])
+        fi, lam, ha = XYZ2BLH(xa, ya, za)
+        R = np.array([[-sin(fi) * cos(lam), -sin(lam), cos(fi) * cos(lam)],
+                      [-sin(fi) * sin(lam), cos(lam), cos(fi) * sin(lam)],
+                      [cos(fi), 0, sin(fi)]])
+        dx = R.T @ dwsp
+        n = dx[1]
+        e = dx[0]
+        u = dx[2]
+        return(n, e, u)
     
     def BLH2XYZ(self, f, l, h):
         a = self.a
@@ -49,17 +55,22 @@ class Transformations:
         Z = (N + h - N * e2) * sin(f)
         return(X, Y, Z)
     
-    def BL2PL2000(self, f, l, ns, m0= 0.999923):
+    def BL2PL2000(self, f, l):
         a = self.a
         e2 = self.e2
-        if ns == 5:
+        if l <= 16.5:
             l0 = radians(15)
-        elif ns == 6:
+            ns = 5
+        elif 16.5 < l <= 19.5:
             l0 = radians(18)
-        elif ns == 7:
+            ns = 6
+        elif 19.5 < l <= 22.5:
             l0 = radians(21)
-        elif ns == 8:
+            ns = 7
+        elif l > 22.5:
             l0 = radians(24)
+            ns = 8
+        m0 = 0.999923
         b2 = a**2*(1 - e2)
         ep2 = (a**2 - b2)/b2
         dl = l - l0
@@ -77,7 +88,9 @@ class Transformations:
         y2000 = ygk * m0 + ns * 1000000 + 500000
         return x2000,y2000
     
-    def BL2PL1992(self, f, l, l0=radians(19), m0 = 0.9993):
+    def BL2PL1992(self, f, l):
+        l0=radians(19)
+        m0 = 0.9993
         a = self.a
         e2 = self.e2
         b2 = a**2*(1 - e2)
