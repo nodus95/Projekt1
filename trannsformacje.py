@@ -155,6 +155,7 @@ if __name__ == '__main__':
     el = {'WGS84':[6378137.000, 0.00669438002290], 'GRS80':[6378137.000, 0.00669438002290], 'KRASOWSKI':[6378245.000, 0.00669342162296]}
     trans = {'XYZ2BLH': 'XYZ2BLH','BLH2XYZ': 'BLH2XYZ', 'BL2PL2000':'BL2PL2000','BL2PL1992':'BL2PL1992','XYZ2NEU':'XYZ2NEU'}
  
+ 
     try:
         xyz = Transformations(el[args.elip.upper()])
         xtytzt = xyz.wczytywanie_wspolrzednych(args.file, trans[args.trans.upper()])
