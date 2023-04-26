@@ -70,7 +70,7 @@ To już wszytko. Dziękujemy za skorzystanie z naszego programu.
 ```
 
 
-### Opis struktury danych w przykładowych pliku wejściowym i wyjściowym
+### Opis struktury danych w przykładowych plikach wejściowych i wyjściowych
 
 Przykład 1:
 Transformacja:
