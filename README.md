@@ -16,15 +16,15 @@ Dzięki naszemu programowi będziesz w stanie przetransformować współrzędne.
 
 ### Wymagania: 
 
-- konieczne jest poosiadanie pythona w wersji 3.11.3 lub 3.9
+- konieczne jest poosiadanie pythona w wersji 3.9 do 3.11.3
 - pobrana biblioteka argparse
 - pobrana biblioteka numpy
 
-- Projekt został wykonany dla systemu operacyjnego Windows 11 i Windows 10
+- Projekt został wykonany dla systemu operacyjnego Windows 10 i Windows 11
 
 ### Jak korzystać z naszego programu?
 
-Dzięki bibliotece argparse jesteśmy w stanie podawać argumentów przy wywołaniu podając następujące flagi:
+Dzięki bibliotece argparse jesteśmy w stanie podawać argumenty przy wywołaniu, podając następujące flagi:
 
 ```sh
 -file
@@ -34,7 +34,7 @@ Dzięki bibliotece argparse jesteśmy w stanie podawać argumentów przy wywoła
 ```
 - "-file" pozwala na wprowadzenie ścieżki do pliku z danymi, które chcemy przetransformować
 - "-elip" przyjmuje nazwę elipsoidy
-- "-trans" tutaj podajemy naszą wybraną transformację
+- "-trans" tutaj podajemy wybraną przez nas transformację
 
 Przykładowe wywołanie:
 
@@ -42,7 +42,7 @@ Przykładowe wywołanie:
 NASZPROJEKT.py -file C:\Users\krzys\projektinfa\test.txt -elip WGS84 -trans XYZ2BLH
 
 ```
-Przy wpisywaniu nazw elipsoid oraz transforamcji wielkość liter nie ma znaczenia, więc wywołanie może wyglądać w taki sposób:
+Przy wpisywaniu nazw elipsoid oraz transforamcji wielkość liter nie ma znaczenia, więc wywołanie może wyglądać również w taki sposób:
 
 ```sh
 NASZPROJEKT.py -file C:\Users\krzys\projektinfa\test.txt -elip wgs84 -trans xyz2blh
@@ -87,8 +87,10 @@ Plik: XYZ.txt
 
 ```
 
-Dane to kolejno X, Y, Z. Wszystkie wartości są podane w metrach
+Dane to kolejno X, Y, Z. Wszystkie wartości muszą być podane w metrach
 
+Gdyby zaistniała potrzeba odszukania pliku wynikowego, jego nazwa to zawsze:
+"twoje_wyniki_(nazwa wybranej transformacji)_(wybrana elipsoida).txt"
 
 Plik wynikowy: twoje_wyniki_XYZ2BLH_wgs84.txt
 
