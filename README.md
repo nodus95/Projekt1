@@ -1,10 +1,14 @@
 # Projekt1
-Program służy do transformacji współrzędnych z układów:
-XYZ (geocentryczne) -> BLH (elipsoidalne fi, lambda, h)
-BLH -> XYZ
-XYZ -> NEUp (topocentryczne northing, easting, up)
-BL(GRS80, WGS84, ew. Krasowski) -> 2000
-BL(GRS80, WGS84, ew. Krasowski) -> 1992
+Dzięki naszemu programowi będziesz w stanie przetransformować współrzędne.
 
-Aby program działał należy posiadać pythona w wersji min. 3.9, oraz mieć zainstalowane biblioteki "numpy", "math", "argparse"
-Program został napisany dla systemu Windows
+# Obsługiwane transformacje:
+
+- Algorytm Hirvonena (X, Y, Z -> phi, lambda H)
+- Algorytm odwrotny do Hirvonena (phi, lambda, H -> X, Y, Z)
+- X, Y, Z -> N, E, U
+- phi, lambda -> X2000, Y2000
+- phi, lambda -> X1992, Y1992
+
+
+
+
