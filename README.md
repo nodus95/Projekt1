@@ -70,13 +70,72 @@ To już wszytko. Dziękujemy za skorzystanie z naszego programu.
 ```
 
 
-### Przykładowe użycia naszego programu
+### Opis struktury danych w przykładowych pliku wejściowym i wyjściowym
 
-Uwaga! Wszystkie współrzędne MUSZĄ być oddzielone spacją!
+Przykład 1:
+Transformacja:
+X, Y, Z -> phi, lambda, H (Algorytm Hirvonena)
+Plik: XYZ.txt
+
+```sh
+3664940.500 1409153.590 5009571.170
+3664940.510 1409153.580 5009571.167
+3664940.520 1409153.570 5009571.167
+3664940.530 1409153.560 5009571.168
+3664940.520 1409153.590 5009571.170
 
 
+```
+
+Dane to kolejno X, Y, Z. Wszystkie wartości są podane w metrach
 
 
+Plik wynikowy: twoje_wyniki_XYZ2BLH_wgs84.txt
+
+```sh
+52.0972722193 21.0315333328 141.399
+52.0972721620 21.0315331442 141.400
+52.0972721213 21.0315329557 141.403
+52.0972720861 21.0315327671 141.408
+52.0972720869 21.0315332281 141.410
+
+```
+Natomiast tutaj uzyskane dane to phi, lambda, H. Phi oraz lambda są w stopniach, a wartości H w metrach.
+
+Przykład 2:
+
+Transformacja:
+phi, lambda -> X2000, Y2000
+Plik: BL.txt
+
+```sh
+69.12332 21.32445
+78.32466 27.34333
+72.07965 25.98987
+72.95975 22.22222
+76.42321 23.67575
+
+```
+Danymi wejściowymi sa phi[stopnie] oraz lambda[stopnie].
+
+
+Plik wynikowy: twoje_wyniki_BL2PL2000_wgs84.txt
+
+```sh
+7683562.371 5751223.668
+8726749.942 5776957.087
+8034806.942 5875666.850
+8112836.181 5735786.723
+8501865.563 5726644.959
+
+
+```
+Po transformacji otrzymujemy w pliku wynikowym dane - X2000 oraz Y2000 wyrażone w metrach.
+
+### Uwagi oraz błędy
+
+- Wszystkie dane wprowadzane w pliku wejściowym **MUSZĄ** być oddzielone spacją. W innym wypadku program nie zadziała.
+- 
 
 
 
