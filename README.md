@@ -1,7 +1,7 @@
 # Projekt1
 Dzięki naszemu programowi będziesz w stanie przetransformować współrzędne.
 
-# Obsługiwane transformacje:
+## Obsługiwane transformacje:
 
 - Algorytm Hirvonena (X, Y, Z -> phi, lambda H)
 - Algorytm odwrotny do Hirvonena (phi, lambda, H -> X, Y, Z)
