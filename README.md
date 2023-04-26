@@ -32,6 +32,9 @@ Dzięki bibliotece argparse jesteśmy w stanie podawać argumentów przy wywoła
 -trans
 
 ```
+- "-file" pozwala na wprowadzenie ścieżki do pliku z danymi, które chcemy przetransformować
+- "-elip" przyjmuje nazwę elipsoidy
+- "-trans" tutaj podajemy naszą wybraną transformację
 
 
 
