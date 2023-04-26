@@ -9,7 +9,9 @@ class Transformations:
         self.a = elipsoida[0]
         
         self.e2 = elipsoida[1]
-
+    """
+    Transformacja wykorzystuje Algorytm Hirvonena aby przeliczyć współrzędne kartezjańskie X, Y, Z na współrzędne geodezyjne Fi, Lambda, H.
+    """
     def XYZ2BLH(self, X, Y, Z,):
         wynik = []
         for X, Y, Z in zip(X, Y, Z):
@@ -27,7 +29,9 @@ class Transformations:
             l = np.arctan2(Y, X)
             wynik.append([np.rad2deg(f), np.rad2deg(l), h])
         return(wynik)
-
+    """
+    Przelicza współrzędne geocentryczne na współrzędne układu topocentrycznego przez przesunięcie początku układu współrzędnych do punktu gdzie znajduje się antena odbiornika(X0, Y0, Z0).
+    """
     def XYZ2NEU(self, X, Y, Z, X0, Y0, Z0):
         wyniki = []
         a = self.a
@@ -53,7 +57,9 @@ class Transformations:
             X_rneu = R_neu.T@X_sr
             wyniki.append(X_rneu.T)
         return wyniki
-    
+    """
+    Transformacja przelicza współrzędne geodezyjne Fi, Lambda, H na współrzędne kartezjańskie X, Y, Z.
+    """
     def BLH2XYZ(self, f, l, h):
         wynik = []
         for f, l, h in zip(f, l, h):
@@ -65,8 +71,9 @@ class Transformations:
             Z = (N + h - N * e2) * np.sin(f)
             wynik.append([X, Y, Z])
         return(wynik)
-
-    
+    """
+    Transformacja przelicza współrzędne geodezyjne Fi, Lambda na płaszczyznę Gaussa-Krügera w układzie PL2000 oraz automatycznie dobiera południk środkowy dla dowolnego punktu na terenie Polski.
+    """
     def BL2PL2000(self, f, l):
         wynik = []
         for f, l in zip (f,l):
@@ -102,7 +109,9 @@ class Transformations:
             y2000 = ygk * m0 + ns * 1000000 + 500000
             wynik.append([x2000, y2000])
         return (wynik)
-    
+    """
+    Transformacja przelicza współrzędne geodezyjne Fi, Lambda na płaszczyznę Gaussa-Krügera w układzie PL1992.
+    """
     def BL2PL1992(self, f, l):
         wynik = []
         for f, l in zip (f,l):
