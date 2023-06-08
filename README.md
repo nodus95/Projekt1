@@ -138,8 +138,8 @@ Po transformacji otrzymujemy w pliku wynikowym dane - X2000 oraz Y2000 wyrażone
 
 - Wszystkie dane wprowadzane w pliku wejściowym **MUSZĄ** być oddzielone spacją. W innym przypadku program nie zadziała.
 - Uwaga! Plik z danymi wynikowymi może nie zapisywać się w tym samym folderze w którym znajduję się skrypt! Wtedy należy szukać pliku w C:\Users\ <nazwa_użytkownika>
-
-
+- Transformacje BL-PL2000 i BL-PL1992 nie poda poprawnych wyników dla elipsoidy Krasowskiego i nie powinny być używane
+- Wywołanie programu jest to możliwe tylko wtedy gdy uzytkowink ma powiazany typ plików pythonowych (.py) z programem "python launcher"
 
 
 
