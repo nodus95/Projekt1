@@ -138,7 +138,7 @@ Przykład 3:
 
 Transformacja:
 X, Y, Z -> N, E, U
-Plik: XYZ.txt
+Plik: iks.txt
 
 W pliku wejściowym w kolumnach 1,2,3 znajdują się kolejno X[m], Y[m], Z[m] (w pierwszym wierszu są to współrzędne odbiornika, a w kolejnych wierszach współrzędne satelitów).
 
