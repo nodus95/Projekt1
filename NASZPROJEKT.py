@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Apr 24 23:09:24 2023
+
+@author: krzys
+"""
 import numpy as np
 from math import *
 from argparse import ArgumentParser
@@ -9,9 +15,7 @@ class Transformations:
         self.a = elipsoida[0]
         
         self.e2 = elipsoida[1]
-    """
-    Transformacja wykorzystuje Algorytm Hirvonena aby przeliczyć współrzędne kartezjańskie X, Y, Z na współrzędne geodezyjne Fi, Lambda, H.
-    """
+
     def XYZ2BLH(self, X, Y, Z,):
         wynik = []
         for X, Y, Z in zip(X, Y, Z):
@@ -29,9 +33,7 @@ class Transformations:
             l = np.arctan2(Y, X)
             wynik.append([np.rad2deg(f), np.rad2deg(l), h])
         return(wynik)
-    """
-    Przelicza współrzędne geocentryczne na współrzędne układu topocentrycznego przez przesunięcie początku układu współrzędnych do punktu gdzie znajduje się antena odbiornika(X0, Y0, Z0).
-    """
+
     def XYZ2NEU(self, X, Y, Z, X0, Y0, Z0):
         wyniki = []
         a = self.a
@@ -57,9 +59,7 @@ class Transformations:
             X_rneu = R_neu.T@X_sr
             wyniki.append(X_rneu.T)
         return wyniki
-    """
-    Transformacja przelicza współrzędne geodezyjne Fi, Lambda, H na współrzędne kartezjańskie X, Y, Z.
-    """
+    
     def BLH2XYZ(self, f, l, h):
         wynik = []
         for f, l, h in zip(f, l, h):
@@ -71,9 +71,8 @@ class Transformations:
             Z = (N + h - N * e2) * np.sin(f)
             wynik.append([X, Y, Z])
         return(wynik)
-    """
-    Transformacja przelicza współrzędne geodezyjne Fi, Lambda na płaszczyznę Gaussa-Krügera w układzie PL2000 oraz automatycznie dobiera południk środkowy dla dowolnego punktu na terenie Polski.
-    """
+
+    
     def BL2PL2000(self, f, l):
         wynik = []
         for f, l in zip (f,l):
@@ -109,9 +108,7 @@ class Transformations:
             y2000 = ygk * m0 + ns * 1000000 + 500000
             wynik.append([x2000, y2000])
         return (wynik)
-    """
-    Transformacja przelicza współrzędne geodezyjne Fi, Lambda na płaszczyznę Gaussa-Krügera w układzie PL1992.
-    """
+    
     def BL2PL1992(self, f, l):
         wynik = []
         for f, l in zip (f,l):
@@ -141,19 +138,20 @@ class Transformations:
             wsp = np.genfromtxt(plik_dane,delimiter = " ")
             if trans == 'XYZ2BLH':
                 transformed = self.XYZ2BLH(wsp[:,0], wsp[:,1], wsp[:,2])
-                np.savetxt(f"twoje_wyniki_{trans}_{args.elip}.txt", transformed, delimiter=' ', fmt='%0.3f %0.3f %0.3f')
+                np.savetxt(f"twoje_wyniki_{trans}_{args.elip}.txt", transformed, delimiter=' ', fmt='%0.10f %0.10f %0.3f')
             elif trans == 'BLH2XYZ':
                 transformed = self.BLH2XYZ(np.deg2rad((wsp[:,0])), np.deg2rad(wsp[:,1]), wsp[:,2])
-                np.savetxt(f"twoje_wyniki_{trans}_{args.elip}.txt", transformed, delimiter=' ',fmt='%0.3f %0.3f %0.3f')
-            elif trans == 'BL2PL2000':
-                transformed = self.BL2PL2000(np.deg2rad(wsp[:,0]), np.deg2rad(wsp[:,1]))
-                np.savetxt(f"twoje_wyniki_{trans}_{args.elip}.txt", transformed, delimiter=' ', fmt='%0.3f %0.3f %0.3f')
-            elif trans == 'BL2PL1992':
-                transformed = self.BL2PL1992(np.deg2rad(wsp[:,0]), np.deg2rad(wsp[:,1]))
                 np.savetxt(f"twoje_wyniki_{trans}_{args.elip}.txt", transformed, delimiter=' ',fmt='%0.3f %0.3f %0.3f')
             elif trans == 'XYZ2NEU':
                 transformed = self.XYZ2NEU(wsp[1:,0], wsp[1:,1], wsp[1:,2], wsp[0,0], wsp[0,1], wsp[0,2])
                 np.savetxt(f"twoje_wyniki_{trans}._{args.elip}.txt", transformed, delimiter=' ', fmt='%0.3f %0.3f %0.3f')
+            elif trans == 'BL2PL2000':
+                transformed = self.BL2PL2000(np.deg2rad(wsp[:,0]), np.deg2rad(wsp[:,1]))
+                np.savetxt(f"twoje_wyniki_{trans}_{args.elip}.txt", transformed, delimiter=' ', fmt='%0.3f %0.3f')
+            elif trans == 'BL2PL1992':
+                transformed = self.BL2PL1992(np.deg2rad(wsp[:,0]), np.deg2rad(wsp[:,1]))
+                np.savetxt(f"twoje_wyniki_{trans}_{args.elip}.txt", transformed, delimiter=' ',fmt='%0.3f %0.3f')
+        
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -163,7 +161,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
     el = {'WGS84':[6378137.000, 0.00669438002290], 'GRS80':[6378137.000, 0.00669438002290], 'KRASOWSKI':[6378245.000, 0.00669342162296]}
     trans = {'XYZ2BLH': 'XYZ2BLH','BLH2XYZ': 'BLH2XYZ', 'BL2PL2000':'BL2PL2000','BL2PL1992':'BL2PL1992','XYZ2NEU':'XYZ2NEU'}
- 
  
     try:
         xyz = Transformations(el[args.elip.upper()])
@@ -180,3 +177,4 @@ if __name__ == '__main__':
         print('Dane w pliku wejsciowym sa blednie podane.')
     finally:
         print('To już wszytko. Dziękujemy za skorzystanie z naszego programu.')
+
