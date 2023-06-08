@@ -134,6 +134,37 @@ Plik wynikowy: twoje_wyniki_BL2PL2000_wgs84.txt
 ```
 Po transformacji otrzymujemy w pliku wynikowym dane - X2000 oraz Y2000 wyrażone w metrach.
 
+Przykład 3:
+
+Transformacja:
+X, Y, Z -> N, E, U
+Plik: XYZ.txt
+
+W pliku wejściowym w kolumnach 1,2,3 znajdują się kolejno X[m], Y[m], Z[m] (w pierwszym wierszu są to współrzędne odbiornika, a w kolejnych wierszach współrzędne satelitów).
+
+
+```sh
+4674202.0707659787 4444444.7139986877 6545323.345368741
+2.87678304399999976e+07 7.1113728000000119e+07 3.847713999999999942e+04
+-2.391130946000000089e+07 -2.08423180339500000142e+07 -2.229962486000000034e+06
+6.32775858699999936e+07 1.288512925399999879e+07 1.944924987600000203e+07
+1.982159728800000250e+07 3.882086669999999925e+06 6.423423310199999809e+07
+-5.2132131999999940e+06 -2.445428761199999973e+07 -4.484889633000001311e+06
+
+```
+
+Plik wynikowy: twoje_wyniki_XYZ2NEU._GRS80.txt
+
+```sh
+-49818564.026 31712552.917 39749968.243
+21083868.808 1372313.084 -32971877.624
+-25435897.468 -34265014.626 43023679.071
+32835774.457 -10845175.725 48600043.381
+11607975.073 -14129582.779 -26836041.331
+
+```
+W pliku wyjściowym znajdują się kolejno wektory N, E, U. Wszystkie parametry są wyrażone w metrach.
+
 ### Uwagi oraz błędy
 
 - Wszystkie dane wprowadzane w pliku wejściowym **MUSZĄ** być oddzielone spacją. W innym przypadku program nie zadziała.
